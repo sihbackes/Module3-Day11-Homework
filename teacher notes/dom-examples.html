@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Examples</title>
+    <style>
+      /* ul li:nth-child(3) {
+            color: red;
+        } */
+
+      .selected {
+        border: 2px solid coral;
+        font-weight: bolder;
+        color: coral;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1 id="main-title">Title of the page</h1>
+    <button onclick="applyClassToH1()">Color the title</button>
+    <!-- "onclick" is what connects the click of the button to the execution of your functions -->
+
+    <p class="text">
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt, odit!
+      Ipsam mollitia, sapiente.
+    </p>
+
+    <h2>Secondary Title</h2>
+    <p class="text">
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+      <span>Expedita, mollitia!</span>
+    </p>
+
+    <h2>Third title</h2>
+    <ul>
+      <li>item-1</li>
+      <li>item-2</li>
+      <li>item-3</li>
+      <li>item-4</li>
+      <li>item-5</li>
+    </ul>
+    <p id="last-elem">
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+      <span>Expedita, mollitia!</span>
+    </p>
+
+    <button onclick="generateList()">Generate list</button>
+    <button onclick="hideContainer()">Hide Container</button>
+    <div id="container">
+      <!-- new elements will be generated here -->
+    </div>
+
+    <button onclick="generateImage()">Generate single image</button>
+    <button onclick="generateImages()">Generate image list</button>
+    <div id="image-container">
+      <!-- new images will be generated here -->
+    </div>
+
+    <script>
+      const h1 = document.querySelector("h1");
+      h1.innerText = "Modified";
+
+      const paragraph = document.querySelector(".text");
+      paragraph.classList.add("selected");
+      // paragraph.classList.remove("text")
+
+      const lastElem = document.getElementById("last-elem");
+      lastElem.classList.add("selected");
+      // lastElem.className = "selected"
+      // selecting the node of the container after the page has rendered
+      const container = document.getElementById("container");
+
+      // modifying the inner HTML content of it
+      container.innerHTML = `<div>
+                                    <span> Hey! </span>
+                                </div>`;
+
+      // container.innerText = "some new text"
+
+      const applyClassToH1 = function () {
+        h1.classList.toggle("selected"); // toggles the class (adds it the first time and removes it the second etc..)
+      };
+
+      const generateList = function () {
+        const ul = document.createElement("ul"); // creating a new ul element in memory (not visible yet) - <ul></ul>
+        ul.innerText = "Temporary text"; // <ul>Temporary text</ul>
+        ul.style.backgroundColor = "aquamarine"; // ul gets colored
+
+        for (let i = 0; i < 10; i++) {
+          // 10 cycles
+          const li = document.createElement("li"); // creating 10 new list items
+          li.innerText = "item " + (i + 1); // changing the text for each one of them
+
+          ul.appendChild(li); // appending every new li into the ul
+        }
+
+        container.appendChild(ul); // only here we are attaching it to the DOM, and becomes vibile!
+      };
+
+      const hideContainer = function () {
+        // const container = document.getElementById("container")
+        // container.hidden = !container.hidden // this adds the "hidden" attributes that will make it hidden
+
+        container.classList.toggle("hidden"); // this leaverages the class we created in css to hide the element, toggling it on / off
+      };
+
+      const generateImage = function () {
+        const imageContainer = document.getElementById("image-container");
+        imageContainer.innerHTML = ""; // this makes sure the container is emptied out before appending new elements
+
+        const img = document.createElement("img"); // <img src="" alt="" />
+        img.src =
+          "https://images.unsplash.com/photo-1665338091398-c71b9704abcb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80";
+        // <img src=""https://images.unsplash....." alt="" />
+        img.style.width = "100%";
+
+        imageContainer.appendChild(img);
+        // console.dir(img)
+      };
+
+      const generateImages = function () {
+        const imageContainer = document.getElementById("image-container");
+        imageContainer.innerHTML = ""; // this makes sure the container is emptied out before appending new elements
+
+        const arrOfImagesLinks = [
+          "https://images.unsplash.com/photo-1665395508167-e8cd5df6a546?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80",
+          "https://images.unsplash.com/photo-1665329929710-644672e5b705?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+          "https://images.unsplash.com/photo-1665329927840-9769dcab7517?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        ];
+
+        for (let i = 0; i < arrOfImagesLinks.length; i++) {
+          // generating as many images as we have strings in the array
+          const img = document.createElement("img");
+          img.src = arrOfImagesLinks[i];
+          img.style.width = "33.333%";
+          img.style.aspectRatio = "1/1"; // this makes sure the image is always a square
+          img.style.objectFit = "cover"; // this keeps the proportion of the image after the change in size and aspect ratio
+
+          imageContainer.appendChild(img); // appending each new image in the container
+        }
+      };
+    </script>
+  </body>
+</html>

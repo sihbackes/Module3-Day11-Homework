@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+}
+th {
+  background-color: rgb(233, 232, 233);
+  border: 1px solid black;
+}
+td {
+  background-color: wheat;
+}
+img {
+  height: 200px;
+}
+
+.form {
+  padding: 100px;
+}
+
+.buttons {
+  margin: 20px;
+}
